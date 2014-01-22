@@ -1,0 +1,183 @@
+<?php
+/**
+ * @file
+ * Code for the Radix HR Job feature.
+ */
+
+include_once 'radix_hr_job.features.inc';
+
+/******************************************************
+ * Drupal Hooks
+ *****************************************************/
+
+/**
+ * Implements hook_block_info
+ */
+function radix_hr_job_block_info() {
+  $blocks = array();
+  
+  $blocks['radix_hr_job_linkedin'] = array(
+    'info' => t('Apply with LinkedIn'),
+  );
+  
+  return $blocks;
+}
+
+
+/**
+ * Implements hook_block_view
+ */
+function radix_hr_job_block_view($delta) {
+
+  $block = array();
+
+  switch ($delta) {
+    case 'radix_hr_job_linkedin':
+      $block['subject'] = t('Apply with LinkedIn');
+      $block['content'] = _radix_hr_job_block_radix_hr_job_linkedin_render();
+      break;
+  }
+  
+  return $block;
+}
+
+
+/**
+ * Implements hook_block_configure
+ */
+function radix_hr_job_block_configure($delta = '') {
+
+  $form = array();
+  
+  switch ($delta) {
+    case 'radix_hr_job_linkedin':
+      $form['radix_hr_job_linkedin'] = array(
+        '#type' => 'fieldset',
+        '#title' => 'LinkedIn settings',
+      );
+      
+      $form['radix_hr_job_linkedin']['radix_hr_job_linkedin_api_key'] = array(
+        '#type' => 'textfield',
+        '#title' => t('De LinkedIn API key'),
+        '#default_value' => variable_get('radix_hr_job_linkedin_api_key', ''),
+      );
+      
+      $form['radix_hr_job_linkedin']['radix_hr_job_linkedin_company_name'] = array(
+        '#type' => 'textfield',
+        '#title' => t('De bedrijfsnaam'),
+        '#default_value' => variable_get('radix_hr_job_linkedin_company_name', ''),
+      );
+
+      $form['radix_hr_job_linkedin']['radix_hr_job_linkedin_company_email'] = array(
+        '#type' => 'textfield',
+        '#title' => t('Het e-mailadres'),
+        '#default_value' => variable_get('radix_hr_job_linkedin_company_email', ''),
+      );
+      
+      break;  
+  }
+  
+  return $form;
+}
+
+
+/**
+ * Implements hook_block_save
+ *
+ */
+function radix_hr_job_block_save($delta = '', $edit = array()) {
+  switch ($delta) {
+    case 'radix_hr_job_linkedin':
+      variable_set('radix_hr_job_linkedin_api_key', $edit['radix_hr_job_linkedin_api_key']);
+      variable_set('radix_hr_job_linkedin_company_name', $edit['radix_hr_job_linkedin_company_name']);
+      variable_set('radix_hr_job_linkedin_company_email', $edit['radix_hr_job_linkedin_company_email']);            
+  }
+}
+
+
+/**
+ * Implements hook_theme
+ */
+function radix_hr_job_theme($existing, $type, $theme, $path) {
+  return array(
+    'radix_hr_job_apply_linkedin' => array(
+      'variables' => array(
+        'jobtitle' => NULL,
+        'api_key' => NULL,
+        'company_name' => NULL,
+        'company_email' => NULL,
+      ),
+      'template' => 'radix_hr_job_apply_linkedin',
+    ),
+  );
+}
+
+
+/**
+ * Implements hook_node_access
+ */
+function radix_hr_job_node_access($node, $op, $account) {
+  $type = is_string($node) ? $node : $node->type;
+
+  if ($type == 'job' && $op == 'view') {
+    $workflow_state_field = field_get_items('node', $node, 'field_job_workflow_state');
+    if ($workflow_state_field[0]['value'] == 'unpublished') {
+      // check for roles
+      $roles = $account->roles;
+      $ret = NODE_ACCESS_DENY;
+      if (is_array($roles)) {
+        $allow = array('recruiter', 'administrator');
+        foreach ($roles as $role) {
+          if (in_array($role, $allow)) {
+            $ret = NODE_ACCESS_ALLOW;
+          }
+        }
+      }
+      return $ret;
+    }
+  }
+
+  // Returning nothing from this function would have the same effect.
+  return NODE_ACCESS_IGNORE;
+}
+
+
+/*******************************************************
+ * Helper, callback and rendering functions
+ ******************************************************/
+
+/**
+ * Get a list of valid "Job" content types
+ */
+function _radix_hr_job_content_types() {
+  return array_keys(radix_hr_job_node_info());
+}
+
+/** 
+ * Render LinkedIn block
+ */
+function _radix_hr_job_block_radix_hr_job_linkedin_render() {
+
+  // template variables
+  $jobtitle = t("Spontaan solliciteren");
+  if (arg(0) == 'node' && is_numeric(arg(1))) {
+    $nid = arg(1);
+    $node = node_load($nid);
+    if (in_array($node->type, _radix_hr_job_content_types())) {
+      $jobtitle = $node->title;
+    } 
+  }
+  
+  $api_key = variable_get('radix_hr_job_linkedin_api_key', '');
+  $company_name = variable_get('radix_hr_job_linkedin_company_name', '');
+  $company_email = variable_get('radix_hr_job_linkedin_company_email', '');
+  
+  $output = theme('radix_hr_job_apply_linkedin', array(
+    'jobtitle' => $jobtitle,
+    'api_key' => $api_key,
+    'company_name' => $company_name,
+    'company_email' => $company_email,
+  ));
+  return $output;
+
+}
