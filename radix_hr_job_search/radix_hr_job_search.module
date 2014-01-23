@@ -1,7 +1,19 @@
 <?php
 /**
  * @file
- * Code for the Radix HR Job Search feature.
+ * Code for the BB HR Job Search feature.
  */
 
 include_once 'radix_hr_job_search.features.inc';
+
+/**
+ * Implements hook_views_post_execute
+ */
+function radix_hr_job_search_views_post_execute(&$view) {
+  if ($view->name == 'jobs_front') {
+    $path = 'search/job';
+    $alias = drupal_lookup_path('alias', $path);
+    $base_path = !empty($alias) ? $alias : $path;
+    $view->query->setOption('search_api_base_path', $base_path);   
+  }
+}

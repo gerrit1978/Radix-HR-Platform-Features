@@ -1,0 +1,117 @@
+# $Id$
+#
+# LANGUAGE translation of Drupal (general)
+# Copyright YEAR NAME <EMAIL@ADDRESS>
+# Generated from files:
+#  bb_hr_job_search.context.inc: n/a
+#  bb_hr_job_search.info: n/a
+#  bb_hr_job_search.views_default.inc: n/a
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: PROJECT VERSION\n"
+"POT-Creation-Date: 2013-09-30 14:23+0200\n"
+"PO-Revision-Date: 2013-09-30 14:46+0100\n"
+"Last-Translator: NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <EMAIL@ADDRESS>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Poedit 1.5.7\n"
+
+#: bb_hr_job_search.context.inc:90;141 bb_hr_job_search.info:0
+msgid "BrightBrain"
+msgstr ""
+
+#: bb_hr_job_search.context.inc:91
+msgid "Job search pages"
+msgstr "Job search pagina's"
+
+#: bb_hr_job_search.context.inc:142
+msgid "Frontpage blocks (job search)"
+msgstr "Voorpagina blokken (job search)"
+
+#: bb_hr_job_search.views_default.inc:94;160
+msgid "Master"
+msgstr ""
+
+#: bb_hr_job_search.views_default.inc:95
+msgid "Jobs"
+msgstr ""
+
+#: bb_hr_job_search.views_default.inc:96;162
+msgid "more"
+msgstr ""
+
+#: bb_hr_job_search.views_default.inc:97;163
+msgid "Apply"
+msgstr ""
+
+#: bb_hr_job_search.views_default.inc:98;164
+msgid "Opnieuw instellen"
+msgstr ""
+
+#: bb_hr_job_search.views_default.inc:99;165
+msgid "Sort by"
+msgstr ""
+
+#: bb_hr_job_search.views_default.inc:100;166
+msgid "Asc"
+msgstr ""
+
+#: bb_hr_job_search.views_default.inc:101;167
+msgid "Desc"
+msgstr ""
+
+#: bb_hr_job_search.views_default.inc:102
+msgid "Items per page"
+msgstr ""
+
+#: bb_hr_job_search.views_default.inc:103
+msgid "- All -"
+msgstr ""
+
+#: bb_hr_job_search.views_default.inc:104
+msgid "Offset"
+msgstr ""
+
+#: bb_hr_job_search.views_default.inc:105
+msgid "« eerste"
+msgstr ""
+
+#: bb_hr_job_search.views_default.inc:106
+msgid "‹ vorige"
+msgstr ""
+
+#: bb_hr_job_search.views_default.inc:107
+msgid "volgende ›"
+msgstr ""
+
+#: bb_hr_job_search.views_default.inc:108
+msgid "laatste »"
+msgstr ""
+
+#: bb_hr_job_search.views_default.inc:109
+msgid "What"
+msgstr "Wat"
+
+#: bb_hr_job_search.views_default.inc:110
+msgid "Page"
+msgstr "Pagina"
+
+#: bb_hr_job_search.views_default.inc:161
+msgid "Recente jobs"
+msgstr ""
+
+#: bb_hr_job_search.views_default.inc:168
+msgid "Block"
+msgstr "Blok"
+
+#: bb_hr_job_search.info:0
+msgid "BB HR Job Search"
+msgstr ""
+
+#: bb_hr_job_search.info:0
+msgid "Job search functionalities"
+msgstr "Job search functionaliteiten"
