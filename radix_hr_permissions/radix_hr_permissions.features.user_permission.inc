@@ -47,7 +47,9 @@ function radix_hr_permissions_user_default_permissions() {
   // Exported permission: 'edit own cv profile'.
   $permissions['edit own cv profile'] = array(
     'name' => 'edit own cv profile',
-    'roles' => array(),
+    'roles' => array(
+      'applicant' => 'applicant',
+    ),
     'module' => 'profile2',
   );
 
@@ -80,7 +82,9 @@ function radix_hr_permissions_user_default_permissions() {
   // Exported permission: 'view own cv profile'.
   $permissions['view own cv profile'] = array(
     'name' => 'view own cv profile',
-    'roles' => array(),
+    'roles' => array(
+      'applicant' => 'applicant',
+    ),
     'module' => 'profile2',
   );
 
