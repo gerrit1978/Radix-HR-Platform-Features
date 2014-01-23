@@ -1,0 +1,391 @@
+<?php
+/**
+ * @file
+ * Code for the Radix HR Applicant feature.
+ */
+
+include_once 'radix_hr_applicant.features.inc';
+
+/**
+ * Implements hook_theme
+ */
+function radix_hr_applicant_theme() {
+  return array(
+    // Register the template specific for the resume profile teaser.
+    'profile2__cv__teaser' => array(
+    'render element' => 'elements',
+    'template' => 'profile--cv--teaser',
+    ),
+    // Theme function for resume state info block output.
+    'radix_hr_applicant_get_state_info_box' => array(
+      'variables' => array('state' => NULL, 'state_info' => NULL, 'link' => NULL),
+    ),    
+  );
+}
+
+/**
+ * Implements hook_menu().
+ */
+function radix_hr_applicant_menu() {
+  $items['admin/config/bb-hr/cv'] = array(
+    'title' => 'CV',
+    'description' => 'Settings for the applicant CV feature.',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('radix_hr_applicant_cv_settings'),
+    'access arguments' => array('administer site configuration'),
+    'type' => MENU_NORMAL_ITEM,
+  );
+  return $items;
+}
+
+/**
+ * Implements hook_preprocess_entity().
+ */
+function radix_hr_applicant_preprocess_entity(&$variables, $hook) {
+  if ($variables['entity_type'] == 'profile2') {
+    $profile = $variables['profile2'];
+    // Add resume state info.
+    if ($profile->type == 'cv' && profile2_access('edit', $profile)) {
+/*
+      // Add private field info.
+      foreach (recruiter_resume_private_fields() as $field_name) {
+        // Add resume private info wrapper & suffix.
+        if (isset($variables['content'][$field_name])) {
+          $variables['content'][$field_name]['#prefix'] = '<div class="private-info-wrapper">' . $variables['content'][$field_name]['#prefix'];
+          $variables['content'][$field_name]['#suffix'] .= '</div>';
+          $variables['content'][$field_name]['#suffix'] = '<div class="private info">' .  recruiter_resume_private_fields_info_text($field_name) . '</div>'
+            . $variables['content'][$field_name]['#suffix'];
+        }
+      }
+*/
+
+      $state = radix_hr_applicant_cv_get_state($profile);
+      $state_message = radix_hr_applicant_cv_get_state_info($state);
+
+      if (isset($state_message)) {
+        $variables['content']['field_cv_state_info'] = $state_message;
+      }
+
+      if ($state == 'incomplete') {
+        // Add info when required field collection is empty.
+        foreach (radix_hr_applicant_cv_required_fields() as $field_name) {
+          if (empty($variables[$field_name]) && isset($variables['content'][$field_name])) {
+            $variables['content'][$field_name]['#suffix'] =
+              '<div class="missing info">' . t('Required information needs to be completed.') . '</div>'
+                . $variables['content'][$field_name]['#suffix'];
+          }
+        }
+      }
+    }
+
+    // Order field collections by date.
+    if (isset($variables['content']['field_cv_education'])) {
+      radix_hr_applicant_field_collection_order_by_date($variables['content']['field_cv_education'], 'field_cv_edu_time_period');
+    }
+    if (isset($variables['content']['field_cv_work_experience'])) {
+      radix_hr_applicant_field_collection_order_by_date($variables['content']['field_cv_work_experience'], 'field_cv_workxp_time_period');
+    }
+
+    // Hide label for personal info once it contains data.
+    if (!empty($variables['field_cv_personal_information'])) {
+      $variables['content']['field_cv_personal_information']['#label_display'] = 'hidden';
+    }
+  }
+}
+
+/**
+ * Implements hook_field_access().
+ */
+function radix_hr_applicant_field_access($op, $field, $entity_type, $profile = NULL, $account = NULL) {
+/*   exit('hook_field_access aangeroepen'); */
+  if ($entity_type == 'profile2' && $op == 'view' && !user_access('administer profiles', $account)) {
+    if (in_array($field['field_name'], radix_hr_applicant_cv_private_fields())) {
+      if (!isset($profile)) {
+        return FALSE;
+      }
+      $account = isset($account) ? $account : $GLOBALS['user'];
+      if (!radix_hr_applicant_private_fields_view_access($field, $profile, $account)) {
+        return FALSE;
+      }
+    }
+  }
+}
+
+
+/**
+ * Admin settings form.
+ */
+function radix_hr_applicant_cv_settings($form) {
+  $field_info = field_info_fields();
+  $options = array();
+  foreach (field_info_instances('profile2', 'cv') as $key => $field) {
+    if ($field_info[$key]['type'] == 'field_collection') {
+      $options[$key] = check_plain($field['label']);
+    }
+  }
+
+  $form['radix_hr_applicant_cv_private_fields'] = array(
+    '#type' => 'checkboxes',
+    '#title' => t('Private fields'),
+    '#options' => $options,
+    '#default_value' => radix_hr_applicant_cv_private_fields(),
+    '#description' => t('Private fields of a resume stay invisible to recruiter user by default. Special modules, like the job application feature, may grant access to the private fields.'),
+  );
+  $form['radix_hr_applicant_cv_required_fields'] = array(
+    '#type' => 'checkboxes',
+    '#title' => t('Required fields'),
+    '#options' => $options,
+    '#default_value' => radix_hr_applicant_cv_required_fields(),
+    '#description' => t('A list of fields the user has to fill out before the resume is marked as \'visible\'. Changing this setting does not update the state of exisiting resumes.'),
+  );
+  $form['array_filter'] = array(
+    '#type' => 'value',
+    '#value' => TRUE,
+  );
+  return system_settings_form($form);
+}
+
+/**
+ * Returns a list of resume fields (usually field collections) that remain
+ * invisible for normal recruiter users. In special cases (e.g. the recruiter
+ * user received an application), modules may allow view access, using
+ * hook_recruiter_resume_private_fields_view_access().
+ *
+ * Profile2's private field setting cannot be used for this purpose, as they
+ * always return FALSE for private fields and other modules cannot alter it.
+ *
+ * By default, the personal info and the attachment field collections are
+ * private. The information can be altered in the admin settings and is then
+ * saved in the variable 'recruiter_resume_private_fields'.
+ */
+function radix_hr_applicant_cv_private_fields() {
+  $defaults = array(
+    'field_cv_attachments',
+    'field_cv_personal_information',
+  );
+  return variable_get('radix_hr_applicant_cv_private_fields', $defaults);
+
+}
+
+/**
+ * Returns a list of fields that are required for a resume to be marked as
+ * completed. This list of fields is furthermore used in the Rules condition
+ * 'recruiter_resume_complete'.
+ *
+ * The information can be altered in the admin settings and is then saved in the
+ * variable 'recruiter_resume_required_fields'.
+ */
+function radix_hr_applicant_cv_required_fields() {
+  $defaults = array(
+    'field_cv_personal_information',
+    'field_cv_job_preferences',
+  );
+  return variable_get('radix_hr_applicant_cv_required_fields', $defaults);
+}
+
+
+/**
+ * Helper function to determine whether the given resume has been completed,
+ * based on the required fields.
+ * Used in Rules condition 'recruiter_resume_complete'.
+ *
+ * @param $profile
+ *   The resume.
+ *
+ * @return bool
+ *   TRUE if completed.
+ */
+function radix_hr_applicant_cv_is_complete($profile) {
+
+
+  if ($profile && isset($profile->type) && $profile->type == "cv") {
+    $flag = TRUE;
+    foreach (radix_hr_applicant_cv_required_fields() as $field) {
+      if (!isset($profile->$field) || empty($profile->$field)) {
+        $flag = FALSE;
+      }
+    }
+  } else {
+    $flag = FALSE;
+  }
+  
+  return $flag;
+}
+
+/**
+ * Helper function which gets the state from a given profile.
+ */
+function radix_hr_applicant_cv_get_state($profile) {
+  // The field gets initialized after the profile has been created, thus a value
+  // will always be available.
+  $states = field_get_items('profile2', $profile, 'field_cv_state');
+  return $states[0]['value'];
+}
+
+/**
+ * Helper function which gets the state info text for a given profile state.
+ */
+function radix_hr_applicant_cv_get_state_info($state) {
+  $state_classes = "resume-state resume-state-$state";
+  switch ($state) {
+    case 'visible':
+      return t('The resume is <span class="!classes">visible</span> to the public. By clicking the following link you can make it invisible.', array('!classes' => $state_classes));
+
+    case 'hidden':
+      return t('The resume was <span class="!classes">manually hidden</span>.', array('!classes' => $state_classes)) . " " . t('By clicking the following link you can make it visible again.');
+
+    case 'auto_hidden':
+      return t('The resume was <span class="!classes">automatically hidden</span> due to user inactivity.', array('!classes' => $state_classes)) . t('By clicking the following link you can make it visible again.');
+
+    case 'incomplete':
+      return t('The resume is <span class="!classes">incomplete</span>. Please fill out all necessary information.', array('!classes' => $state_classes));
+  }
+}
+
+/**
+ * Helper function that sorts field collections according to a value from a date
+ * field, starting with the newest one first.
+ */
+function radix_hr_applicant_field_collection_order_by_date(&$field_content_array, $date_field) {
+
+  $dates = array();
+  foreach (element_children($field_content_array) as $delta) {
+    if (isset($field_content_array['#items'][$delta]['value']) && isset($field_content_array[$delta]['entity']['field_collection_item'][$field_content_array['#items'][$delta]['value']])) {
+      $fc = $field_content_array[$delta]['entity']['field_collection_item'][$field_content_array['#items'][$delta]['value']];
+      if (isset($fc[$date_field]['#items'][0]['value'])) {
+        // Take the start date.
+         $dates[$delta] = $fc[$date_field]['#items'][0]['value'];
+      }
+    }
+  }
+  
+  if (count($dates)) {
+    // Reorder $items that are used in field_collection_field_formatter_view().
+    $old_items = $field_content_array['#items'];
+    unset($field_content_array['#items']);
+    arsort($dates);
+    foreach ($dates as $delta => $date) {
+      $field_content_array['#items'][$delta] = $old_items[$delta];
+    }
+  }
+  
+}
+
+
+/**
+ * Determines whether a user has view access to a specific private field on the
+ * resume profile.
+ *
+ * The profile owner always has access, while for the other view access is
+ * denied by default. Modules can alter the access with
+ * recruiter_resume_private_fields_view_access().
+ *
+ * @param $field
+ *   The private field info for which the access should be determined.
+ * @param $profile
+ *   The resume profile the field is attached to.
+ * @param $account
+ *   The current acting user.
+ * @return boolean
+ *   Whether view access is allowed or not.
+ *
+ * @see hook_recruiter_resume_private_fields_view_access()
+ */
+function radix_hr_applicant_private_fields_view_access($field, $profile, $account) {
+  // Always grant view access to the profile owner.
+  if ($account->uid == $profile->uid) {
+    return TRUE;
+  }
+
+  // Allow modules to grant / deny access for all other cases.
+  $access = module_invoke_all('radix_hr_applicant_private_fields_view_access', $field, $profile, $account);
+
+  // Only grant access if at least one module granted access and no one denied
+  // access.
+  if (in_array(FALSE, $access, TRUE)) {
+    return FALSE;
+  }
+  elseif (in_array(TRUE, $access, TRUE)) {
+    return TRUE;
+  }
+  return FALSE;
+}
+
+/**
+ * Implements hook_block_info().
+ */
+function radix_hr_applicant_block_info() {
+  $blocks['cv_state_info'] = array(
+    'info' => t('Current user resume state information'),
+    'cache' => DRUPAL_NO_CACHE,
+  );
+  return $blocks;
+}
+
+/**
+ * Implements hook_block_view().
+ */
+function radix_hr_applicant_block_view($delta) {
+  switch ($delta) {
+    case 'cv_state_info':
+      return _radix_hr_applicant_block_cv_state_info_content();
+  }
+}
+
+/**
+ * Resume state info block content.
+ *
+ * For users that have access to a resume it will show a state info text
+ * and the corresponding show/hide resume links.
+ */
+function _radix_hr_applicant_block_cv_state_info_content() {
+  $menu_item = menu_get_item();
+  $base = profile2_page_get_base_path(profile2_type_load('cv'));
+  if ($menu_item['path'] == $base) {
+    // Get resume if user is logged in and has a resume.
+    global $user;
+    $profile = !empty($user) ? profile2_load_by_user($user, 'cv') : NULL;
+  }
+  elseif ($menu_item['path'] == $base . '/%') {
+    // Get other users resume if we are currently viewing one.
+    $p = $menu_item['page_arguments'][0];
+    $profile = is_object($p) ? profile2_load_by_user($p->uid, 'cv') : NULL;
+  }
+
+  if (!empty($profile) && profile2_access('edit', $profile)) {
+    // Get state info text.
+    $state = radix_hr_applicant_cv_get_state($profile);
+    $state_info = radix_hr_applicant_cv_get_state_info($state);
+
+    // Get the hide or show resume link, either of which is available right now.
+    $link = rules_link_render('cv_set_hidden', $profile->pid, drupal_get_destination());
+    if (empty($link)) {
+      $link = rules_link_render('cv_set_visible', $profile->pid, drupal_get_destination());
+    }
+
+    return array(
+      'subject' => t('CV @state', array('@state' => $state)),
+      'content' => array(
+        'body' => array(
+          '#theme' => 'radix_hr_applicant_get_state_info_box',
+          '#state' => $state,
+          '#state_info' => $state_info,
+          '#link' => $link,
+        ),
+      ),
+    );
+  }
+  return NULL;
+}
+
+
+/**
+ * Themes the resume state info block content.
+ */
+function theme_radix_hr_applicant_get_state_info_box($variables) {
+  return
+    '<div class="state-info-box state-info-state-' . $variables['state'] . '">' .
+    '<p class="state-info-text">' . $variables['state_info'] . '</p>' .
+    '<div class="state-info-link">' . render($variables['link']) . '</div>' .
+    '</div>';
+}

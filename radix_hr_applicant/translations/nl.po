@@ -1,0 +1,323 @@
+# $Id$
+#
+# LANGUAGE translation of Drupal (general)
+# Copyright YEAR NAME <EMAIL@ADDRESS>
+# Generated from files:
+#  bb_hr_applicant.features.field_instance.inc: n/a
+#  bb_hr_applicant.rules.inc: n/a
+#  bb_hr_applicant.info: n/a
+#  bb_hr_applicant.module: n/a
+#  bb_hr_applicant.views_default.inc: n/a
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: PROJECT VERSION\n"
+"POT-Creation-Date: 2013-09-30 14:22+0200\n"
+"PO-Revision-Date: 2013-09-30 14:58+0100\n"
+"Last-Translator: NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <EMAIL@ADDRESS>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Poedit 1.5.7\n"
+
+#: bb_hr_applicant.features.field_instance.inc:1637
+msgid "About Me"
+msgstr "Over Mij"
+
+#: bb_hr_applicant.features.field_instance.inc:1638
+msgid "Additional Notes"
+msgstr "Opmerkingen"
+
+#: bb_hr_applicant.features.field_instance.inc:1639
+msgid "Attachments"
+msgstr "Bijlagen"
+
+#: bb_hr_applicant.features.field_instance.inc:1640
+msgid "Available to start"
+msgstr "Beschikbaar om te starten"
+
+#: bb_hr_applicant.features.field_instance.inc:1641
+msgid "Birthday"
+msgstr "Geboortedatum"
+
+#: bb_hr_applicant.features.field_instance.inc:1642
+msgid "CV State"
+msgstr "CV Status"
+
+#: bb_hr_applicant.features.field_instance.inc:1643
+msgid "Career Status"
+msgstr "Carrière Status"
+
+#: bb_hr_applicant.features.field_instance.inc:1644
+msgid "Company Link"
+msgstr "Bedrijfslink"
+
+#: bb_hr_applicant.features.field_instance.inc:1645
+msgid "Company Location"
+msgstr "Bedrijfslocatie"
+
+#: bb_hr_applicant.features.field_instance.inc:1646
+msgid "Company Name"
+msgstr "Bedrijfsnaam"
+
+#: bb_hr_applicant.features.field_instance.inc:1647
+msgid "Degree Level"
+msgstr "Diploma Niveau"
+
+#: bb_hr_applicant.features.field_instance.inc:1648
+msgid "Desired Field of work"
+msgstr "Gewenst werkveld"
+
+#: bb_hr_applicant.features.field_instance.inc:1649
+msgid "Desired Job Title"
+msgstr "Gewenste Functietitel"
+
+#: bb_hr_applicant.features.field_instance.inc:1650
+msgid "Desired Salary"
+msgstr "Gewenst salaris"
+
+#: bb_hr_applicant.features.field_instance.inc:1651
+msgid "Education"
+msgstr "Opleiding"
+
+#: bb_hr_applicant.features.field_instance.inc:1652
+msgid "Employment Type"
+msgstr "Contracttype"
+
+#: bb_hr_applicant.features.field_instance.inc:1653
+msgid "Extra notes"
+msgstr "Opmerkingen"
+
+#: bb_hr_applicant.features.field_instance.inc:1654
+msgid "Field of Study"
+msgstr "Opleidingsveld"
+
+#: bb_hr_applicant.features.field_instance.inc:1655
+msgid "Field of work"
+msgstr "Werkveld"
+
+#: bb_hr_applicant.features.field_instance.inc:1656
+msgid "Firstname"
+msgstr "Voornaam"
+
+#: bb_hr_applicant.features.field_instance.inc:1657
+msgid "General Skills"
+msgstr "Algemene capaciteiten"
+
+#: bb_hr_applicant.features.field_instance.inc:1658
+msgid "IT Skills"
+msgstr "IT capaciteiten"
+
+#: bb_hr_applicant.features.field_instance.inc:1659
+msgid "Institution Name"
+msgstr "Naam Instituut"
+
+#: bb_hr_applicant.features.field_instance.inc:1660
+msgid "Job Preferences"
+msgstr "Job Voorkeuren"
+
+#: bb_hr_applicant.features.field_instance.inc:1661
+msgid "Job Title"
+msgstr "Functietitel"
+
+#: bb_hr_applicant.features.field_instance.inc:1662
+msgid "Languages"
+msgstr "Talen"
+
+#: bb_hr_applicant.features.field_instance.inc:1663
+msgid "Lastname"
+msgstr "Familienaam"
+
+#: bb_hr_applicant.features.field_instance.inc:1664
+msgid "Personal Information"
+msgstr "Persoonlijke Informatie"
+
+#: bb_hr_applicant.features.field_instance.inc:1665
+msgid "Phone"
+msgstr "Telefoon"
+
+#: bb_hr_applicant.features.field_instance.inc:1666
+msgid "Photo"
+msgstr "Foto"
+
+#: bb_hr_applicant.features.field_instance.inc:1667
+msgid "Postal Address"
+msgstr "Adres"
+
+#: bb_hr_applicant.features.field_instance.inc:1668
+msgid "Salutation"
+msgstr "Begroeting"
+
+#: bb_hr_applicant.features.field_instance.inc:1669
+msgid "Summary"
+msgstr "Samenvatting"
+
+#: bb_hr_applicant.features.field_instance.inc:1670
+msgid "Time Period"
+msgstr "Periode"
+
+#: bb_hr_applicant.features.field_instance.inc:1671
+msgid "Work Experience"
+msgstr "Werkervaring"
+
+#: bb_hr_applicant.rules.inc:14
+msgid "The resume is complete"
+msgstr "Het CV is compleet"
+
+#: bb_hr_applicant.rules.inc:15 bb_hr_applicant.info:0
+msgid "BB HR Applicant"
+msgstr ""
+
+#: bb_hr_applicant.rules.inc:18 bb_hr_applicant.module:27
+msgid "CV"
+msgstr ""
+
+#: bb_hr_applicant.rules.inc:19
+msgid "The resume (CV) that will be checked."
+msgstr "Het CV dat nagekeken wordt."
+
+#: bb_hr_applicant.views_default.inc:94
+msgid "Master"
+msgstr ""
+
+#: bb_hr_applicant.views_default.inc:95
+msgid "My Job Bookmarks"
+msgstr "Mijn gemarkeerde Jobs"
+
+#: bb_hr_applicant.views_default.inc:96
+msgid "more"
+msgstr ""
+
+#: bb_hr_applicant.views_default.inc:97
+msgid "Apply"
+msgstr ""
+
+#: bb_hr_applicant.views_default.inc:98
+msgid "Opnieuw instellen"
+msgstr ""
+
+#: bb_hr_applicant.views_default.inc:99
+msgid "Sort by"
+msgstr ""
+
+#: bb_hr_applicant.views_default.inc:100
+msgid "Asc"
+msgstr ""
+
+#: bb_hr_applicant.views_default.inc:101
+msgid "Desc"
+msgstr ""
+
+#: bb_hr_applicant.views_default.inc:102
+msgid "Items per page"
+msgstr ""
+
+#: bb_hr_applicant.views_default.inc:103
+msgid "- All -"
+msgstr ""
+
+#: bb_hr_applicant.views_default.inc:104
+msgid "Offset"
+msgstr ""
+
+#: bb_hr_applicant.views_default.inc:105
+msgid "« eerste"
+msgstr ""
+
+#: bb_hr_applicant.views_default.inc:106
+msgid "‹ vorige"
+msgstr ""
+
+#: bb_hr_applicant.views_default.inc:107
+msgid "volgende ›"
+msgstr ""
+
+#: bb_hr_applicant.views_default.inc:108
+msgid "laatste »"
+msgstr ""
+
+#: bb_hr_applicant.views_default.inc:109
+msgid "flag"
+msgstr ""
+
+#: bb_hr_applicant.views_default.inc:110
+msgid "Page"
+msgstr ""
+
+#: bb_hr_applicant.module:70
+msgid "Required information needs to be completed."
+msgstr "Er moet nog verplichte informatie ingevoerd worden."
+
+#: bb_hr_applicant.module:106
+msgid "Private fields"
+msgstr "Private velden"
+
+#: bb_hr_applicant.module:109
+msgid ""
+"Private fields of a resume stay invisible to recruiter user by default. "
+"Special modules, like the job application feature, may grant access to the "
+"private fields."
+msgstr ""
+"Private velden van een CV zijn standaard niet zichtbaar voor recruiters. "
+"Speciale modules, zoals de BB HR Application feature kunnen toegang krijgen "
+"tot de private velden."
+
+#: bb_hr_applicant.module:113
+msgid "Required fields"
+msgstr "Verplichte velden."
+
+#: bb_hr_applicant.module:116
+msgid ""
+"A list of fields the user has to fill out before the resume is marked as "
+"'visible'. Changing this setting does not update the state of exisiting "
+"resumes."
+msgstr ""
+"Een lijst van velden die de sollicitant dient in te vullen voordat het CV "
+"als 'zichtbaar' wordt gemarkeerd. Deze instelling veranderen wijzigt niets "
+"aan de status van de huidige CVs."
+
+#: bb_hr_applicant.module:211
+msgid ""
+"The resume is <span class=\"!classes\">visible</span> to the public. By "
+"clicking the following link you can make it invisible."
+msgstr ""
+"Het CV is <span class=\"!classes\">zichtbaar</span> voor het publiek. Door "
+"onderstaande link kan je het onzichtbaar maken."
+
+#: bb_hr_applicant.module:214
+msgid "The resume was <span class=\"!classes\">manually hidden</span>."
+msgstr "Het CV werd <span class=\"!classes\">manueel verborgen</span>."
+
+#: bb_hr_applicant.module:214;217
+msgid "By clicking the following link you can make it visible again."
+msgstr "Met de volgende link maak je het CV opnieuw zichtbaar."
+
+#: bb_hr_applicant.module:217
+msgid ""
+"The resume was <span class=\"!classes\">automatically hidden</span> due to "
+"user inactivity."
+msgstr ""
+"Het CV werd <span class=\"!classes\">automatisch verborgen</span> omwille "
+"van inactiviteit van de gebruiker."
+
+#: bb_hr_applicant.module:220
+msgid ""
+"The resume is <span class=\"!classes\">incomplete</span>. Please fill out "
+"all necessary information."
+msgstr ""
+"Het CV is <span class=\"!classes\">nog niet compleet</span>. Gelieve alle "
+"noodzakelijke informatie in te voeren."
+
+#: bb_hr_applicant.module:28
+msgid "Settings for the applicant CV feature."
+msgstr "Instellingen voor de sollicitant CV feature."
+
+#: bb_hr_applicant.info:0
+msgid "Applicant related functionalities"
+msgstr "Sollicitant gerelateerde functionaliteiten."
+
+#: bb_hr_applicant.info:0
+msgid "BrightBrain"
+msgstr ""
