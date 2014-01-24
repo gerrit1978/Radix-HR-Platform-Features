@@ -1,0 +1,7 @@
+<?php
+/**
+ * @file
+ * Code for the Radix HR Application feature.
+ */
+
+include_once 'radix_hr_application.features.inc';
