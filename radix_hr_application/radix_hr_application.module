@@ -5,3 +5,71 @@
  */
 
 include_once 'radix_hr_application.features.inc';
+
+/**
+ * Implements hook_node_view().
+ *
+ * Adds the job apply link.
+ */
+function radix_hr_application_node_view($node, $view_mode) {
+  if (in_array($node->type, array('job')) && $link = radix_hr_application_get_link($node)) {
+/*   if (in_array($node->type, recruiter_job_content_types()) && $link = radix_hr_application_get_link($node)) { */
+    $node->content['links']['recruiter_job_application'] = array(
+      '#theme' => 'links',
+      '#links' => array(
+        'radix_hr_application' => $link,
+      ),
+      '#attributes' => array('class' => array('links', 'inline')),
+    );
+  }
+}
+
+/**
+ * Helper function for determining the link to the application system, which
+ * can be either the internal one, or linked to an external system, depending on
+ * the node settings.
+ *
+ * @return array|false
+ *   A renderable link array used in theme_links() or FALSE if there is no
+ *   application link.
+ */
+function radix_hr_application_get_link($node) {
+  // Unpublished jobs don't get an apply link.
+  if ($node->field_job_workflow_state[LANGUAGE_NONE][0]['value'] == 'unpublished') {
+    return FALSE;
+  }
+
+  // Default link.
+  $link = array(
+    'title' => '<span>' .  t('Apply', array(), array('context' => 'radix_hr_application')) . '</span>',
+    'href' => 'node/' . $node->nid . '/apply',
+    'attributes' => array('title' => t('Apply', array(), array('context' => 'radix_hr_application')), 'target' => '_blank'),
+    'html' => TRUE,
+  );
+
+/*
+  // Link to external system, if set.
+  if (isset($node->field_job_application_workflow[LANGUAGE_NONE][0]['value']) && $node->field_job_application_workflow[LANGUAGE_NONE][0]['value'] == 'external') {
+    $external = FALSE;
+    if (!empty($node->field_job_application_link[LANGUAGE_NONE][0]['url'])) {
+      $link['href'] = $node->field_job_application_link[LANGUAGE_NONE][0]['url'];
+      $external = TRUE;
+    }
+    elseif (!empty($node->field_job_link[LANGUAGE_NONE][0]['url'])) {
+      $link['href'] = $node->field_job_link[LANGUAGE_NONE][0]['url'];
+      $external = TRUE;
+    }
+    if ($external) {
+      $link['attributes']['rel'] = 'nofollow';
+      $link['external'] = TRUE;
+    }
+  }
+
+  // It does not make sense to present the internal application system if the
+  // job node author is anonymous.
+  elseif (empty($node->uid)) {
+    return FALSE;
+  }
+*/
+  return $link;
+}
