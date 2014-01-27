@@ -52,5 +52,29 @@ function radix_hr_applicant_default_rules_configuration() {
       ]
     }
   }');
+  $items['rules_resume_label'] = entity_import('rules_config', '{ "rules_resume_label" : {
+      "LABEL" : "Resume label",
+      "PLUGIN" : "reaction rule",
+      "OWNER" : "rules",
+      "REQUIRES" : [ "rules", "profile2" ],
+      "ON" : { "profile2_update" : [] },
+      "IF" : [
+        { "data_is" : { "data" : [ "profile2:type" ], "value" : "cv" } },
+        { "NOT data_is_empty" : { "data" : [ "profile2:field-cv-job-preferences" ] } },
+        { "NOT data_is" : {
+            "data" : [ "profile2:label" ],
+            "value" : [ "profile2:field-cv-job-preferences:field-cv-pref-desired-job-title" ]
+          }
+        }
+      ],
+      "DO" : [
+        { "data_set" : {
+            "data" : [ "profile2:label" ],
+            "value" : [ "profile2:field-cv-job-preferences:field-cv-pref-desired-job-title" ]
+          }
+        }
+      ]
+    }
+  }');
   return $items;
 }

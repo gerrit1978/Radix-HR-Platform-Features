@@ -117,6 +117,7 @@ features[flag][] = job_bookmarks
 features[profile2_type][] = cv
 features[rules_config][] = rules_register_as_applicant
 features[rules_config][] = rules_resume_initialization
+features[rules_config][] = rules_resume_label
 features[taxonomy][] = career_status
 features[user_role][] = applicant
 features[variable][] = file_private_path
