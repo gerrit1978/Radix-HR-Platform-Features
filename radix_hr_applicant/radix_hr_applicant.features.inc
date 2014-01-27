@@ -103,5 +103,33 @@ function radix_hr_applicant_default_rules_link() {
     "entity_type" : "profile2",
     "rdf_mapping" : []
   }');
+  $items['cv_set_hidden'] = entity_import('rules_link', '{
+    "settings" : {
+      "text" : "Hide CV",
+      "link_type" : "confirm",
+      "bundles" : { "cv" : "cv" },
+      "entity_link" : 0,
+      "confirm_question" : "Are you sure you want to hide your CV?",
+      "confirm_description" : "Hiding your resume will exclude you from searches and being contacted by companies. You can always re-activate your resume. "
+    },
+    "name" : "cv_set_hidden",
+    "label" : "CV set hidden",
+    "path" : "cv_set_hidden",
+    "entity_type" : "profile2",
+    "rdf_mapping" : []
+  }');
+  $items['cv_set_visible'] = entity_import('rules_link', '{
+    "settings" : {
+      "text" : "Show CV",
+      "link_type" : "token",
+      "bundles" : { "cv" : "cv" },
+      "entity_link" : 1
+    },
+    "name" : "cv_set_visible",
+    "label" : "CV set visible",
+    "path" : "cv_set_visible",
+    "entity_type" : "profile2",
+    "rdf_mapping" : []
+  }');
   return $items;
 }

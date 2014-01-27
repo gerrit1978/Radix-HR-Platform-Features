@@ -20,6 +20,26 @@ function radix_hr_permissions_user_default_permissions() {
     'module' => 'rules_link',
   );
 
+  // Exported permission: 'access rules link cv_set_hidden'.
+  $permissions['access rules link cv_set_hidden'] = array(
+    'name' => 'access rules link cv_set_hidden',
+    'roles' => array(
+      'administrator' => 'administrator',
+      'applicant' => 'applicant',
+    ),
+    'module' => 'rules_link',
+  );
+
+  // Exported permission: 'access rules link cv_set_visible'.
+  $permissions['access rules link cv_set_visible'] = array(
+    'name' => 'access rules link cv_set_visible',
+    'roles' => array(
+      'administrator' => 'administrator',
+      'applicant' => 'applicant',
+    ),
+    'module' => 'rules_link',
+  );
+
   // Exported permission: 'administer profile types'.
   $permissions['administer profile types'] = array(
     'name' => 'administer profile types',
