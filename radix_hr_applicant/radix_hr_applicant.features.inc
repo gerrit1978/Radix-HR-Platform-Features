@@ -123,7 +123,7 @@ function radix_hr_applicant_default_rules_link() {
       "text" : "Show CV",
       "link_type" : "token",
       "bundles" : { "cv" : "cv" },
-      "entity_link" : 1
+      "entity_link" : 0
     },
     "name" : "cv_set_visible",
     "label" : "CV set visible",
