@@ -10,6 +10,16 @@
 function radix_hr_permissions_user_default_permissions() {
   $permissions = array();
 
+  // Exported permission: 'access rules link cv_init_visible'.
+  $permissions['access rules link cv_init_visible'] = array(
+    'name' => 'access rules link cv_init_visible',
+    'roles' => array(
+      'administrator' => 'administrator',
+      'applicant' => 'applicant',
+    ),
+    'module' => 'rules_link',
+  );
+
   // Exported permission: 'administer profile types'.
   $permissions['administer profile types'] = array(
     'name' => 'administer profile types',
@@ -35,30 +45,11 @@ function radix_hr_permissions_user_default_permissions() {
     'module' => 'profile2',
   );
 
-  // Exported permission: 'edit any main profile'.
-  $permissions['edit any main profile'] = array(
-    'name' => 'edit any main profile',
-    'roles' => array(
-      'administrator' => 'administrator',
-    ),
-    'module' => 'profile2',
-  );
-
   // Exported permission: 'edit own cv profile'.
   $permissions['edit own cv profile'] = array(
     'name' => 'edit own cv profile',
     'roles' => array(
       'applicant' => 'applicant',
-    ),
-    'module' => 'profile2',
-  );
-
-  // Exported permission: 'edit own main profile'.
-  $permissions['edit own main profile'] = array(
-    'name' => 'edit own main profile',
-    'roles' => array(
-      'administrator' => 'administrator',
-      'authenticated user' => 'authenticated user',
     ),
     'module' => 'profile2',
   );
@@ -70,30 +61,11 @@ function radix_hr_permissions_user_default_permissions() {
     'module' => 'profile2',
   );
 
-  // Exported permission: 'view any main profile'.
-  $permissions['view any main profile'] = array(
-    'name' => 'view any main profile',
-    'roles' => array(
-      'administrator' => 'administrator',
-    ),
-    'module' => 'profile2',
-  );
-
   // Exported permission: 'view own cv profile'.
   $permissions['view own cv profile'] = array(
     'name' => 'view own cv profile',
     'roles' => array(
       'applicant' => 'applicant',
-    ),
-    'module' => 'profile2',
-  );
-
-  // Exported permission: 'view own main profile'.
-  $permissions['view own main profile'] = array(
-    'name' => 'view own main profile',
-    'roles' => array(
-      'administrator' => 'administrator',
-      'authenticated user' => 'authenticated user',
     ),
     'module' => 'profile2',
   );
