@@ -82,3 +82,26 @@ function radix_hr_applicant_default_profile2_type() {
   }');
   return $items;
 }
+
+/**
+ * Implements hook_default_rules_link().
+ */
+function radix_hr_applicant_default_rules_link() {
+  $items = array();
+  $items['cv_init_visible'] = entity_import('rules_link', '{
+    "settings" : {
+      "text" : "Show CV",
+      "link_type" : "confirm",
+      "bundles" : { "cv" : "cv" },
+      "entity_link" : 0,
+      "confirm_question" : "CV activation",
+      "confirm_description" : "You have completed all necessary information and can now activate your resume. Active resumes are visible to recruiters."
+    },
+    "name" : "cv_init_visible",
+    "label" : "CV init visible",
+    "path" : "cv_init_visible",
+    "entity_type" : "profile2",
+    "rdf_mapping" : []
+  }');
+  return $items;
+}

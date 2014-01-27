@@ -185,9 +185,9 @@ function radix_hr_applicant_cv_required_fields() {
 
 
 /**
- * Helper function to determine whether the given resume has been completed,
+ * Helper function to determine whether the given cv has been completed,
  * based on the required fields.
- * Used in Rules condition 'recruiter_resume_complete'.
+ * Used in Rules condition 'radix_hr_applicant_cv_complete'.
  *
  * @param $profile
  *   The resume.
@@ -196,7 +196,6 @@ function radix_hr_applicant_cv_required_fields() {
  *   TRUE if completed.
  */
 function radix_hr_applicant_cv_is_complete($profile) {
-
 
   if ($profile && isset($profile->type) && $profile->type == "cv") {
     $flag = TRUE;
@@ -333,6 +332,16 @@ function radix_hr_applicant_block_view($delta) {
 }
 
 /**
+ * Implements hook_form_FORM_ID_alter().
+ */
+function radix_hr_applicant_form_field_collection_item_form_alter(&$form, &$form_state, $form_id) {
+  if (isset($form['#bundle']) && in_array($form['#bundle'], radix_hr_applicant_cv_required_fields())) {
+    $form['#submit'][] = 'radix_hr_applicant_field_collection_submit';
+  }
+}
+
+
+/**
  * Resume state info block content.
  *
  * For users that have access to a resume it will show a state info text
@@ -388,4 +397,38 @@ function theme_radix_hr_applicant_get_state_info_box($variables) {
     '<p class="state-info-text">' . $variables['state_info'] . '</p>' .
     '<div class="state-info-link">' . render($variables['link']) . '</div>' .
     '</div>';
+}
+
+
+/**
+ * Submit handler for resume field collections.
+ */
+function radix_hr_applicant_field_collection_submit(&$form, &$form_state) {
+  // Redirect the applicant to the Rules Link form for activating the resume
+  // once all required fields are completed.
+  // Unfortunately the Rules configuration for this purpose does not work as
+  // the redirection in combination with the overlay leads to an redirection
+  // loop.
+  if (isset($form_state['field_collection_item'])) {
+    $profile = $form_state['field_collection_item']->hostEntity();
+    if ($profile && isset($profile->pid) && isset($profile->type) && $profile->type == "cv") {
+      $state = radix_hr_applicant_cv_get_state($profile);
+      if ($state == "incomplete" && radix_hr_applicant_cv_is_complete($profile)) {
+        // Set to 'hidden' as the user might cancel the Rules Link submission.
+        $profile->field_resume_state[LANGUAGE_NONE][0]['value'] = 'hidden';
+        $profile->save();
+        // Remove the destination parameter from the Overlay and force the
+        // redirect.
+        if (isset($_GET['destination'])) {
+          unset($_GET['destination']);
+        }
+        $form_state['redirect'] = array(
+          'cv_init_visible/' . $profile->pid,
+          'query' => array(
+            'destination' => 'profile-cv/' . $profile->uid,
+          ),
+        );
+      }
+    }
+  }
 }

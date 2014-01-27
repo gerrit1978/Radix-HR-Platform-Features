@@ -886,7 +886,7 @@ function radix_hr_applicant_field_default_field_bases() {
         'auto_hidden' => 'automatically hidden',
       ),
       'allowed_values_function' => '',
-      'profile2_private' => 1,
+      'profile2_private' => 0,
     ),
     'translatable' => 0,
     'type' => 'list_text',

@@ -9,6 +9,38 @@
  */
 function radix_hr_applicant_default_rules_configuration() {
   $items = array();
+  $items['rules_link_condition_cv_init_visible'] = entity_import('rules_config', '{ "rules_link_condition_cv_init_visible" : {
+      "LABEL" : "Rules link: CV init visible condition",
+      "PLUGIN" : "and",
+      "OWNER" : "rules",
+      "REQUIRES" : [ "rules", "radix_hr_applicant" ],
+      "USES VARIABLES" : { "profile2" : { "label" : "profile2", "type" : "profile2" } },
+      "AND" : [
+        { "data_is" : { "data" : [ "profile2:type" ], "value" : "cv" } },
+        { "data_is" : { "data" : [ "site:current-user" ], "value" : [ "profile2:user" ] } },
+        { "radix_hr_applicant_cv_complete" : { "profile" : [ "profile2" ] } }
+      ]
+    }
+  }');
+  $items['rules_link_set_cv_init_visible'] = entity_import('rules_config', '{ "rules_link_set_cv_init_visible" : {
+      "LABEL" : "Rules link: CV init visible rules set",
+      "PLUGIN" : "rule set",
+      "OWNER" : "rules",
+      "REQUIRES" : [ "rules" ],
+      "USES VARIABLES" : { "profile2" : { "type" : "profile2", "label" : "profile2" } },
+      "RULES" : [
+        { "RULE" : {
+            "IF" : [ { "data_is" : { "data" : [ "profile2:type" ], "value" : "cv" } } ],
+            "DO" : [
+              { "redirect" : { "url" : "profile-cv" } },
+              { "data_set" : { "data" : [ "profile2:field-cv-state" ], "value" : "visible" } }
+            ],
+            "LABEL" : "CV init visible"
+          }
+        }
+      ]
+    }
+  }');
   $items['rules_register_as_applicant'] = entity_import('rules_config', '{ "rules_register_as_applicant" : {
       "LABEL" : "Register as applicant",
       "PLUGIN" : "reaction rule",
