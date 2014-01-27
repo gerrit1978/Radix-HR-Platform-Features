@@ -11,6 +11,11 @@ include_once 'radix_hr_applicant.features.inc';
  */
 function radix_hr_applicant_theme() {
   return array(
+    // Register the template specific for the resume profile.
+    'profile2__cv' => array(
+      'render element' => 'elements',
+      'template' => 'profile--cv',
+    ),
     // Register the template specific for the resume profile teaser.
     'profile2__cv__teaser' => array(
     'render element' => 'elements',
@@ -77,6 +82,7 @@ function radix_hr_applicant_preprocess_entity(&$variables, $hook) {
         }
       }
     }
+    
 
     // Order field collections by date.
     if (isset($variables['content']['field_cv_education'])) {
@@ -225,7 +231,7 @@ function radix_hr_applicant_cv_get_state($profile) {
  * Helper function which gets the state info text for a given profile state.
  */
 function radix_hr_applicant_cv_get_state_info($state) {
-  $state_classes = "resume-state resume-state-$state";
+  $state_classes = "cv-state cv-state-$state";
   switch ($state) {
     case 'visible':
       return t('The resume is <span class="!classes">visible</span> to the public. By clicking the following link you can make it invisible.', array('!classes' => $state_classes));
