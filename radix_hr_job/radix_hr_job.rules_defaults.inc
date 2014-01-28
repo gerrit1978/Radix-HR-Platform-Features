@@ -13,29 +13,8 @@ function radix_hr_job_default_rules_configuration() {
       "LABEL" : "Rules link: Job publish condition",
       "PLUGIN" : "and",
       "OWNER" : "rules",
-      "REQUIRES" : [ "rules" ],
       "USES VARIABLES" : { "node" : { "label" : "node", "type" : "node" } },
-      "AND" : [
-        { "OR" : [
-            { "user_has_role" : {
-                "account" : [ "site:current-user" ],
-                "roles" : { "value" : { "30037204" : "30037204" } }
-              }
-            },
-            { "AND" : [
-                { "data_is" : { "data" : [ "node:author" ], "value" : [ "site:current-user" ] } },
-                { "user_has_role" : {
-                    "account" : [ "site:current-user" ],
-                    "roles" : { "value" : { "100482362" : "100482362" } }
-                  }
-                }
-              ]
-            }
-          ]
-        },
-        { "node_is_of_type" : { "node" : [ "node" ], "type" : { "value" : { "job" : "job" } } } },
-        { "data_is" : { "data" : [ "node:field-job-workflow-state" ], "value" : "unpublished" } }
-      ]
+      "AND" : []
     }
   }');
   $items['rules_link_condition_job_unpublish'] = entity_import('rules_config', '{ "rules_link_condition_job_unpublish" : {
@@ -45,22 +24,11 @@ function radix_hr_job_default_rules_configuration() {
       "REQUIRES" : [ "rules" ],
       "USES VARIABLES" : { "node" : { "label" : "node", "type" : "node" } },
       "AND" : [
-        { "OR" : [
-            { "user_has_role" : {
-                "account" : [ "site:current-user" ],
-                "roles" : { "value" : { "30037204" : "30037204" } }
-              }
-            },
-            { "AND" : [
-                { "data_is" : { "data" : [ "node:author" ], "value" : [ "site:current-user" ] } },
-                { "user_has_role" : {
-                    "account" : [ "site:current-user" ],
-                    "roles" : { "value" : { "100482362" : "100482362" } }
-                  }
-                }
-              ]
-            }
-          ]
+        { "user_has_role" : {
+            "account" : [ "site:current-user" ],
+            "roles" : { "value" : { "30037204" : "30037204", "100482362" : "100482362" } },
+            "operation" : "OR"
+          }
         },
         { "node_is_of_type" : { "node" : [ "node" ], "type" : { "value" : { "job" : "job" } } } },
         { "data_is" : { "data" : [ "node:field-job-workflow-state" ], "value" : "published" } }
