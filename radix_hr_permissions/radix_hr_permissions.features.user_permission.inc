@@ -40,6 +40,26 @@ function radix_hr_permissions_user_default_permissions() {
     'module' => 'rules_link',
   );
 
+  // Exported permission: 'access rules link job_publish'.
+  $permissions['access rules link job_publish'] = array(
+    'name' => 'access rules link job_publish',
+    'roles' => array(
+      'administrator' => 'administrator',
+      'recruiter' => 'recruiter',
+    ),
+    'module' => 'rules_link',
+  );
+
+  // Exported permission: 'access rules link job_unpublish'.
+  $permissions['access rules link job_unpublish'] = array(
+    'name' => 'access rules link job_unpublish',
+    'roles' => array(
+      'administrator' => 'administrator',
+      'recruiter' => 'recruiter',
+    ),
+    'module' => 'rules_link',
+  );
+
   // Exported permission: 'administer profile types'.
   $permissions['administer profile types'] = array(
     'name' => 'administer profile types',
