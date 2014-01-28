@@ -78,6 +78,26 @@ function radix_hr_permissions_user_default_permissions() {
     'module' => 'profile2',
   );
 
+  // Exported permission: 'create job content'.
+  $permissions['create job content'] = array(
+    'name' => 'create job content',
+    'roles' => array(
+      'administrator' => 'administrator',
+      'recruiter' => 'recruiter',
+    ),
+    'module' => 'node',
+  );
+
+  // Exported permission: 'delete own job content'.
+  $permissions['delete own job content'] = array(
+    'name' => 'delete own job content',
+    'roles' => array(
+      'administrator' => 'administrator',
+      'recruiter' => 'recruiter',
+    ),
+    'module' => 'node',
+  );
+
   // Exported permission: 'edit any cv profile'.
   $permissions['edit any cv profile'] = array(
     'name' => 'edit any cv profile',
@@ -92,6 +112,16 @@ function radix_hr_permissions_user_default_permissions() {
       'applicant' => 'applicant',
     ),
     'module' => 'profile2',
+  );
+
+  // Exported permission: 'edit own job content'.
+  $permissions['edit own job content'] = array(
+    'name' => 'edit own job content',
+    'roles' => array(
+      'administrator' => 'administrator',
+      'recruiter' => 'recruiter',
+    ),
+    'module' => 'node',
   );
 
   // Exported permission: 'flag job_bookmarks'.
