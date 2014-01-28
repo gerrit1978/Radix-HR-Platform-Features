@@ -74,6 +74,10 @@ function radix_hr_job_views_default_views() {
       'empty_column' => 0,
     ),
   );
+  /* Relationship: Inhoud: Auteur */
+  $handler->display->display_options['relationships']['uid']['id'] = 'uid';
+  $handler->display->display_options['relationships']['uid']['table'] = 'node';
+  $handler->display->display_options['relationships']['uid']['field'] = 'uid';
   /* Veld: Bulk operations: Inhoud */
   $handler->display->display_options['fields']['views_bulk_operations']['id'] = 'views_bulk_operations';
   $handler->display->display_options['fields']['views_bulk_operations']['table'] = 'node';
@@ -232,6 +236,13 @@ function radix_hr_job_views_default_views() {
       'label' => '',
     ),
   );
+  /* Veld: Gebruiker: Naam */
+  $handler->display->display_options['fields']['name']['id'] = 'name';
+  $handler->display->display_options['fields']['name']['table'] = 'users';
+  $handler->display->display_options['fields']['name']['field'] = 'name';
+  $handler->display->display_options['fields']['name']['relationship'] = 'uid';
+  $handler->display->display_options['fields']['name']['label'] = 'Auteur';
+  $handler->display->display_options['fields']['name']['link_to_user'] = FALSE;
   /* Veld: Inhoud: Titel */
   $handler->display->display_options['fields']['title']['id'] = 'title';
   $handler->display->display_options['fields']['title']['table'] = 'node';
@@ -242,6 +253,17 @@ function radix_hr_job_views_default_views() {
   $handler->display->display_options['fields']['field_job_workflow_state']['id'] = 'field_job_workflow_state';
   $handler->display->display_options['fields']['field_job_workflow_state']['table'] = 'field_data_field_job_workflow_state';
   $handler->display->display_options['fields']['field_job_workflow_state']['field'] = 'field_job_workflow_state';
+  /* Veld: Inhoud: Updated date */
+  $handler->display->display_options['fields']['changed']['id'] = 'changed';
+  $handler->display->display_options['fields']['changed']['table'] = 'node';
+  $handler->display->display_options['fields']['changed']['field'] = 'changed';
+  $handler->display->display_options['fields']['changed']['date_format'] = 'short';
+  /* Veld: Inhoud: Edit link */
+  $handler->display->display_options['fields']['edit_node']['id'] = 'edit_node';
+  $handler->display->display_options['fields']['edit_node']['table'] = 'views_entity_node';
+  $handler->display->display_options['fields']['edit_node']['field'] = 'edit_node';
+  $handler->display->display_options['fields']['edit_node']['label'] = 'Bewerken';
+  $handler->display->display_options['fields']['edit_node']['text'] = 'bewerken';
   /* Sort criterion: Inhoud: Post date */
   $handler->display->display_options['sorts']['created']['id'] = 'created';
   $handler->display->display_options['sorts']['created']['table'] = 'node';
@@ -274,13 +296,18 @@ function radix_hr_job_views_default_views() {
     t('‹ vorige'),
     t('volgende ›'),
     t('laatste »'),
+    t('author'),
     t('Inhoud'),
     t('- Choose an operation -'),
     t('delete job'),
     t('publish job'),
     t('unpublish job'),
+    t('Auteur'),
     t('Titel'),
     t('Workflow state'),
+    t('Updated date'),
+    t('Bewerken'),
+    t('bewerken'),
     t('Page'),
   );
   $export['recruiter_jobs'] = $view;

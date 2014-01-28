@@ -50,7 +50,7 @@ function radix_hr_job_default_rules_link() {
   $items = array();
   $items['job_publish'] = entity_import('rules_link', '{
     "settings" : {
-      "text" : "publish",
+      "text" : "publish job",
       "link_type" : "token",
       "bundles" : { "job" : "job" },
       "entity_link" : 1
