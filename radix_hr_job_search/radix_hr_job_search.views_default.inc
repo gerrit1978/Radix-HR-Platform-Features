@@ -53,13 +53,6 @@ function radix_hr_job_search_views_default_views() {
   $handler->display->display_options['sorts']['changed']['table'] = 'search_api_index_job_index';
   $handler->display->display_options['sorts']['changed']['field'] = 'changed';
   $handler->display->display_options['sorts']['changed']['order'] = 'DESC';
-  /* Filter criterion: Indexed Node: Workflow state */
-  $handler->display->display_options['filters']['field_job_workflow_state']['id'] = 'field_job_workflow_state';
-  $handler->display->display_options['filters']['field_job_workflow_state']['table'] = 'search_api_index_job_index';
-  $handler->display->display_options['filters']['field_job_workflow_state']['field'] = 'field_job_workflow_state';
-  $handler->display->display_options['filters']['field_job_workflow_state']['value'] = array(
-    139 => '139',
-  );
   /* Filter criterion: Indexed Node: Inhoudstype */
   $handler->display->display_options['filters']['type']['id'] = 'type';
   $handler->display->display_options['filters']['type']['table'] = 'search_api_index_job_index';
@@ -85,6 +78,14 @@ function radix_hr_job_search_views_default_views() {
     5 => 0,
     6 => 0,
   );
+  /* Filter criterion: Workflow state: All parent terms (indexed) */
+  $handler->display->display_options['filters']['field_job_workflow_state_parents_all']['id'] = 'field_job_workflow_state_parents_all';
+  $handler->display->display_options['filters']['field_job_workflow_state_parents_all']['table'] = 'search_api_index_job_index';
+  $handler->display->display_options['filters']['field_job_workflow_state_parents_all']['field'] = 'field_job_workflow_state_parents_all';
+  $handler->display->display_options['filters']['field_job_workflow_state_parents_all']['value'] = array(
+    139 => '139',
+  );
+  $handler->display->display_options['filters']['field_job_workflow_state_parents_all']['type'] = 'select';
 
   /* Display: Page */
   $handler = $view->new_display('page', 'Page', 'page');
@@ -146,13 +147,14 @@ function radix_hr_job_search_views_default_views() {
   $handler->display->display_options['sorts']['created']['table'] = 'search_api_index_job_index';
   $handler->display->display_options['sorts']['created']['field'] = 'created';
   $handler->display->display_options['sorts']['created']['order'] = 'DESC';
-  /* Filter criterion: Indexed Node: Workflow state */
-  $handler->display->display_options['filters']['field_job_workflow_state']['id'] = 'field_job_workflow_state';
-  $handler->display->display_options['filters']['field_job_workflow_state']['table'] = 'search_api_index_job_index';
-  $handler->display->display_options['filters']['field_job_workflow_state']['field'] = 'field_job_workflow_state';
-  $handler->display->display_options['filters']['field_job_workflow_state']['value'] = array(
+  /* Filter criterion: Workflow state: All parent terms (indexed) */
+  $handler->display->display_options['filters']['field_job_workflow_state_parents_all']['id'] = 'field_job_workflow_state_parents_all';
+  $handler->display->display_options['filters']['field_job_workflow_state_parents_all']['table'] = 'search_api_index_job_index';
+  $handler->display->display_options['filters']['field_job_workflow_state_parents_all']['field'] = 'field_job_workflow_state_parents_all';
+  $handler->display->display_options['filters']['field_job_workflow_state_parents_all']['value'] = array(
     139 => '139',
   );
+  $handler->display->display_options['filters']['field_job_workflow_state_parents_all']['type'] = 'select';
 
   /* Display: Block */
   $handler = $view->new_display('block', 'Block', 'block');
