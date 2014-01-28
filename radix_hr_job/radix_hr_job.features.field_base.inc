@@ -443,24 +443,32 @@ function radix_hr_job_field_default_field_bases() {
     'field_permissions' => array(
       'type' => 0,
     ),
-    'foreign keys' => array(),
+    'foreign keys' => array(
+      'tid' => array(
+        'columns' => array(
+          'tid' => 'tid',
+        ),
+        'table' => 'taxonomy_term_data',
+      ),
+    ),
     'indexes' => array(
-      'value' => array(
-        0 => 'value',
+      'tid' => array(
+        0 => 'tid',
       ),
     ),
     'locked' => 0,
-    'module' => 'list',
+    'module' => 'taxonomy',
     'settings' => array(
       'allowed_values' => array(
-        'published' => 'Published',
-        'unpublished' => 'Unpublished',
+        0 => array(
+          'vocabulary' => 'job_states',
+          'parent' => 0,
+        ),
       ),
-      'allowed_values_function' => '',
       'profile2_private' => FALSE,
     ),
     'translatable' => 0,
-    'type' => 'list_text',
+    'type' => 'taxonomy_term_reference',
   );
 
   return $field_bases;

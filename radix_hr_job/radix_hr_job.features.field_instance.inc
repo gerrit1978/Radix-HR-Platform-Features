@@ -22,7 +22,7 @@ function radix_hr_job_field_default_field_instances() {
         'module' => 'email',
         'settings' => array(),
         'type' => 'email_default',
-        'weight' => 14,
+        'weight' => 13,
       ),
       'teaser' => array(
         'label' => 'above',
@@ -61,7 +61,7 @@ function radix_hr_job_field_default_field_instances() {
         'module' => 'text',
         'settings' => array(),
         'type' => 'text_default',
-        'weight' => 13,
+        'weight' => 12,
       ),
       'teaser' => array(
         'label' => 'above',
@@ -101,7 +101,7 @@ function radix_hr_job_field_default_field_instances() {
         'module' => 'text',
         'settings' => array(),
         'type' => 'text_default',
-        'weight' => 10,
+        'weight' => 9,
       ),
       'teaser' => array(
         'label' => 'above',
@@ -141,7 +141,7 @@ function radix_hr_job_field_default_field_instances() {
         'module' => 'taxonomy',
         'settings' => array(),
         'type' => 'taxonomy_term_reference_link',
-        'weight' => 3,
+        'weight' => 2,
       ),
       'teaser' => array(
         'label' => 'above',
@@ -178,7 +178,7 @@ function radix_hr_job_field_default_field_instances() {
         'module' => 'text',
         'settings' => array(),
         'type' => 'text_default',
-        'weight' => 9,
+        'weight' => 8,
       ),
       'teaser' => array(
         'label' => 'above',
@@ -218,7 +218,7 @@ function radix_hr_job_field_default_field_instances() {
         'module' => 'taxonomy',
         'settings' => array(),
         'type' => 'taxonomy_term_reference_link',
-        'weight' => 4,
+        'weight' => 3,
       ),
       'teaser' => array(
         'label' => 'above',
@@ -255,7 +255,7 @@ function radix_hr_job_field_default_field_instances() {
         'module' => 'taxonomy',
         'settings' => array(),
         'type' => 'taxonomy_term_reference_link',
-        'weight' => 5,
+        'weight' => 4,
       ),
       'teaser' => array(
         'label' => 'above',
@@ -292,7 +292,7 @@ function radix_hr_job_field_default_field_instances() {
         'module' => 'taxonomy',
         'settings' => array(),
         'type' => 'taxonomy_term_reference_link',
-        'weight' => 1,
+        'weight' => 0,
       ),
       'teaser' => array(
         'label' => 'above',
@@ -329,7 +329,7 @@ function radix_hr_job_field_default_field_instances() {
         'module' => 'taxonomy',
         'settings' => array(),
         'type' => 'taxonomy_term_reference_link',
-        'weight' => 2,
+        'weight' => 1,
       ),
       'teaser' => array(
         'label' => 'above',
@@ -366,7 +366,7 @@ function radix_hr_job_field_default_field_instances() {
         'module' => 'taxonomy',
         'settings' => array(),
         'type' => 'taxonomy_term_reference_link',
-        'weight' => 6,
+        'weight' => 5,
       ),
       'teaser' => array(
         'label' => 'above',
@@ -409,7 +409,7 @@ function radix_hr_job_field_default_field_instances() {
         'module' => 'text',
         'settings' => array(),
         'type' => 'text_default',
-        'weight' => 12,
+        'weight' => 11,
       ),
       'teaser' => array(
         'label' => 'above',
@@ -449,7 +449,7 @@ function radix_hr_job_field_default_field_instances() {
         'module' => 'text',
         'settings' => array(),
         'type' => 'text_default',
-        'weight' => 11,
+        'weight' => 10,
       ),
       'teaser' => array(
         'label' => 'above',
@@ -489,7 +489,7 @@ function radix_hr_job_field_default_field_instances() {
         'module' => 'taxonomy',
         'settings' => array(),
         'type' => 'taxonomy_term_reference_link',
-        'weight' => 8,
+        'weight' => 7,
       ),
       'teaser' => array(
         'label' => 'above',
@@ -532,7 +532,7 @@ function radix_hr_job_field_default_field_instances() {
         'module' => 'taxonomy',
         'settings' => array(),
         'type' => 'taxonomy_term_reference_link',
-        'weight' => 7,
+        'weight' => 6,
       ),
       'teaser' => array(
         'label' => 'above',
@@ -566,15 +566,19 @@ function radix_hr_job_field_default_field_instances() {
   // Exported field_instance: 'node-job-field_job_workflow_state'
   $field_instances['node-job-field_job_workflow_state'] = array(
     'bundle' => 'job',
-    'default_value' => NULL,
+    'default_value' => array(
+      0 => array(
+        'tid' => 139,
+      ),
+    ),
     'deleted' => 0,
     'description' => '',
     'display' => array(
       'default' => array(
-        'label' => 'above',
+        'label' => 'hidden',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 15,
+        'weight' => 14,
       ),
       'teaser' => array(
         'label' => 'above',
@@ -585,7 +589,7 @@ function radix_hr_job_field_default_field_instances() {
     ),
     'entity_type' => 'node',
     'field_name' => 'field_job_workflow_state',
-    'label' => 'Status',
+    'label' => 'Workflow state',
     'required' => 1,
     'settings' => array(
       'user_register_form' => FALSE,
@@ -595,7 +599,7 @@ function radix_hr_job_field_default_field_instances() {
       'module' => 'options',
       'settings' => array(),
       'type' => 'options_select',
-      'weight' => 13,
+      'weight' => 31,
     ),
   );
 
@@ -611,11 +615,11 @@ function radix_hr_job_field_default_field_instances() {
   t('Skills Algemeen');
   t('Skills IT');
   t('Sollicitatie E-mail');
-  t('Status');
   t('Studiedomein');
   t('Talen');
   t('Type contract');
   t('Werkdomein');
+  t('Workflow state');
 
   return $field_instances;
 }

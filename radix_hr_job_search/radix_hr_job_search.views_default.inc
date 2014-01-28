@@ -53,12 +53,12 @@ function radix_hr_job_search_views_default_views() {
   $handler->display->display_options['sorts']['changed']['table'] = 'search_api_index_job_index';
   $handler->display->display_options['sorts']['changed']['field'] = 'changed';
   $handler->display->display_options['sorts']['changed']['order'] = 'DESC';
-  /* Filter criterion: Indexed Node: Status */
+  /* Filter criterion: Indexed Node: Workflow state */
   $handler->display->display_options['filters']['field_job_workflow_state']['id'] = 'field_job_workflow_state';
   $handler->display->display_options['filters']['field_job_workflow_state']['table'] = 'search_api_index_job_index';
   $handler->display->display_options['filters']['field_job_workflow_state']['field'] = 'field_job_workflow_state';
   $handler->display->display_options['filters']['field_job_workflow_state']['value'] = array(
-    'published' => 'published',
+    139 => '139',
   );
   /* Filter criterion: Indexed Node: Inhoudstype */
   $handler->display->display_options['filters']['type']['id'] = 'type';
@@ -74,7 +74,7 @@ function radix_hr_job_search_views_default_views() {
   $handler->display->display_options['filters']['search_api_views_fulltext']['operator'] = 'OR';
   $handler->display->display_options['filters']['search_api_views_fulltext']['exposed'] = TRUE;
   $handler->display->display_options['filters']['search_api_views_fulltext']['expose']['operator_id'] = 'search_api_views_fulltext_op';
-  $handler->display->display_options['filters']['search_api_views_fulltext']['expose']['label'] = 'What';
+  $handler->display->display_options['filters']['search_api_views_fulltext']['expose']['label'] = 'Wat';
   $handler->display->display_options['filters']['search_api_views_fulltext']['expose']['operator'] = 'search_api_views_fulltext_op';
   $handler->display->display_options['filters']['search_api_views_fulltext']['expose']['identifier'] = 'search_api_views_fulltext';
   $handler->display->display_options['filters']['search_api_views_fulltext']['expose']['remember_roles'] = array(
@@ -106,7 +106,7 @@ function radix_hr_job_search_views_default_views() {
     t('‹ vorige'),
     t('volgende ›'),
     t('laatste »'),
-    t('What'),
+    t('Wat'),
     t('Page'),
   );
   $export['jobs'] = $view;
@@ -146,12 +146,12 @@ function radix_hr_job_search_views_default_views() {
   $handler->display->display_options['sorts']['created']['table'] = 'search_api_index_job_index';
   $handler->display->display_options['sorts']['created']['field'] = 'created';
   $handler->display->display_options['sorts']['created']['order'] = 'DESC';
-  /* Filter criterion: Indexed Node: Status */
+  /* Filter criterion: Indexed Node: Workflow state */
   $handler->display->display_options['filters']['field_job_workflow_state']['id'] = 'field_job_workflow_state';
   $handler->display->display_options['filters']['field_job_workflow_state']['table'] = 'search_api_index_job_index';
   $handler->display->display_options['filters']['field_job_workflow_state']['field'] = 'field_job_workflow_state';
   $handler->display->display_options['filters']['field_job_workflow_state']['value'] = array(
-    'published' => 'published',
+    139 => '139',
   );
 
   /* Display: Block */
