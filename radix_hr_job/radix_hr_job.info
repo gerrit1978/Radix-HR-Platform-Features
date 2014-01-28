@@ -21,6 +21,7 @@ dependencies[] = strongarm
 dependencies[] = taxonomy
 dependencies[] = text
 dependencies[] = views
+dependencies[] = views_bulk_operations
 datestamp = 1390376843
 features[context][] = job_detail_page
 features[ctools][] = context:context:3
