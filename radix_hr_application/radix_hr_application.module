@@ -36,10 +36,8 @@ function radix_hr_application_node_view($node, $view_mode) {
 function radix_hr_application_get_link($node) {
   // Jobs that are not published don't get an apply link.
   $workflow_state_field = field_get_items('node', $node, 'field_job_workflow_state');
-  $workflow_state_tid = isset($workflow_state_field[0]['tid']) ? $workflow_state_field[0]['tid'] : '';
-  // load term
-  $state = taxonomy_term_load($workflow_state_tid);
-  if ($state->name != 'published') {
+  $state = (isset($workflow_state_field[0]['value'])) ? $workflow_state_field[0]['value'] : '';
+  if ($state != 'published') {
     return FALSE;
   }
 

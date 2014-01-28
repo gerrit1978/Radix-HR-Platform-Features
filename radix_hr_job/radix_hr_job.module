@@ -121,10 +121,8 @@ function radix_hr_job_node_access($node, $op, $account) {
 
   if ($type == 'job' && $op == 'view') {
     $workflow_state_field = field_get_items('node', $node, 'field_job_workflow_state');
-    $workflow_state_tid = isset($workflow_state_field[0]['tid']) ? $workflow_state_field[0]['tid'] : '';
-    // load term
-    $state = taxonomy_term_load($workflow_state_tid);
-    if ($state->name == 'unpublished') {
+
+    if (!isset($workflow_state_field[0]['value']) || $workflow_state_field[0]['value'] == 'unpublished') {
       // check for roles
       $roles = $account->roles;
       $ret = NODE_ACCESS_DENY;

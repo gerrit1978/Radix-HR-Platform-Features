@@ -46,6 +46,7 @@ function radix_hr_job_search_default_search_api_index() {
         "url" : { "type" : "uri" },
         "created" : { "type" : "date" },
         "changed" : { "type" : "date" },
+        "field_job_workflow_state" : { "type" : "string" },
         "search_api_language" : { "type" : "string" },
         "search_api_url" : { "type" : "uri" },
         "field_job_degree_level:parents_all" : {
@@ -73,8 +74,7 @@ function radix_hr_job_search_default_search_api_index() {
         "field_job_skills_it:parents_all" : {
           "type" : "list\\u003Clist\\u003Cinteger\\u003E\\u003E",
           "entity_type" : "taxonomy_term"
-        },
-        "field_job_workflow_state:parents_all" : { "type" : "list\\u003Cinteger\\u003E", "entity_type" : "taxonomy_term" }
+        }
       },
       "data_alter_callbacks" : {
         "search_api_alter_bundle_filter" : {
@@ -286,10 +286,10 @@ function radix_hr_job_search_default_search_api_server() {
             "type" : "list\\u003Clist\\u003Cinteger\\u003E\\u003E",
             "boost" : "1.0"
           },
-          "field_job_workflow_state:parents_all" : {
-            "table" : "search_api_db_job_index_field_job_workflow_state_parents_all",
-            "column" : "value",
-            "type" : "list\\u003Cinteger\\u003E",
+          "field_job_workflow_state" : {
+            "table" : "search_api_db_job_index",
+            "column" : "field_job_workflow_state",
+            "type" : "string",
             "boost" : "1.0"
           }
         },

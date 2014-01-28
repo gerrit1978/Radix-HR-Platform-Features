@@ -566,18 +566,15 @@ function radix_hr_job_field_default_field_instances() {
   // Exported field_instance: 'node-job-field_job_workflow_state'
   $field_instances['node-job-field_job_workflow_state'] = array(
     'bundle' => 'job',
-    'default_value' => array(
-      0 => array(
-        'tid' => 139,
-      ),
-    ),
+    'default_value' => NULL,
     'deleted' => 0,
     'description' => '',
     'display' => array(
       'default' => array(
-        'label' => 'hidden',
+        'label' => 'above',
+        'module' => 'list',
         'settings' => array(),
-        'type' => 'hidden',
+        'type' => 'list_default',
         'weight' => 14,
       ),
       'teaser' => array(
@@ -590,7 +587,7 @@ function radix_hr_job_field_default_field_instances() {
     'entity_type' => 'node',
     'field_name' => 'field_job_workflow_state',
     'label' => 'Workflow state',
-    'required' => 1,
+    'required' => 0,
     'settings' => array(
       'user_register_form' => FALSE,
     ),
