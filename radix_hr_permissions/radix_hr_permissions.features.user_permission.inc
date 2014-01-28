@@ -74,6 +74,20 @@ function radix_hr_permissions_user_default_permissions() {
     'module' => 'profile2',
   );
 
+  // Exported permission: 'flag job_bookmarks'.
+  $permissions['flag job_bookmarks'] = array(
+    'name' => 'flag job_bookmarks',
+    'roles' => array(),
+    'module' => 'flag',
+  );
+
+  // Exported permission: 'unflag job_bookmarks'.
+  $permissions['unflag job_bookmarks'] = array(
+    'name' => 'unflag job_bookmarks',
+    'roles' => array(),
+    'module' => 'flag',
+  );
+
   // Exported permission: 'view any cv profile'.
   $permissions['view any cv profile'] = array(
     'name' => 'view any cv profile',
